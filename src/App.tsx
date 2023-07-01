@@ -1,35 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { useQuery, useMutation } from "react-query";
+import axios from "axios";
+
+type FormData = {
+    todo: string;
+    isComplete: boolean;
+};
+
+type ResponseData = Pick<FormData, keyof FormData> & { todoItemId: number };
 
 function App() {
-  const [count, setCount] = useState(0)
+    const { data, isSuccess } = useQuery(
+        "todos",
+        async (): Promise<ResponseData[]> => {
+            const { data } = await axios.get<ResponseData[]>(
+                "http://localhost:5034/api/todoItems/todos"
+            );
+            return data;
+        }
+    );
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    console.log(data);
+
+    const mutation = useMutation(async (todo: FormData) => {
+        return await axios.post(
+            "http://localhost:5034/api/todoItems/todos",
+            todo
+        );
+    });
+
+    const deleteMutaion = useMutation(async (id: number) => {
+        return await axios.delete(
+            `http://localhost:5034/api/todoItems/todos/${id}`
+        );
+    });
+
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+
+        const data: FormData = {
+            todo: formData.get("todo") as string,
+            isComplete: true,
+        };
+
+        mutation.mutate(data);
+    };
+
+    return (
+        <>
+            <h1 className="">Add Todo</h1>
+            <ul>
+                {isSuccess &&
+                    data.map((t, idx) => (
+                        <div key={idx}>
+                            <li>{t.todo}</li>
+                            <button
+                                onClick={() =>
+                                    deleteMutaion.mutate(t.todoItemId)
+                                }
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    ))}
+            </ul>
+            <form onSubmit={onSubmit}>
+                <input
+                    className="border-black border-2"
+                    type="text"
+                    name="todo"
+                />
+                <button type="submit">Add</button>
+            </form>
+        </>
+    );
 }
 
-export default App
+export default App;
