@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery, useMutation } from "react-query";
 import axios from "axios";
+import TodoInput from "@/components/todoInput";
 
 type FormData = {
     todo: string;
@@ -49,32 +50,10 @@ function App() {
     };
 
     return (
-        <>
-            <h1 className="">Add Todo</h1>
-            <ul>
-                {isSuccess &&
-                    data.map((t, idx) => (
-                        <div key={idx}>
-                            <li>{t.todo}</li>
-                            <button
-                                onClick={() =>
-                                    deleteMutaion.mutate(t.todoItemId)
-                                }
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    ))}
-            </ul>
-            <form onSubmit={onSubmit}>
-                <input
-                    className="border-black border-2"
-                    type="text"
-                    name="todo"
-                />
-                <button type="submit">Add</button>
-            </form>
-        </>
+        <div className="">
+            <h1 className="text-white text-4xl">todo app</h1>
+            <TodoInput />
+        </div>
     );
 }
 

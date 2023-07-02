@@ -6,6 +6,10 @@
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     background: rgb(2, 0, 36);
     background: linear-gradient(
