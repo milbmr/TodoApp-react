@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 import TodoInput from "@/components/todoInput";
+import TodoItem from "@/components/todoItem";
 
 type FormData = {
     todo: string;
@@ -50,9 +51,11 @@ function App() {
     };
 
     return (
-        <div className="">
-            <h1 className="text-white text-4xl">todo app</h1>
-            <TodoInput />
+        <div className="flex justify-center items-center py-28">
+            <div className="container">
+                <TodoInput />
+                <TodoItem />
+            </div>
         </div>
     );
 }
