@@ -1,6 +1,12 @@
 import { BsTrash, BsFillBookmarkCheckFill } from "react-icons/bs";
 
-export default function TodoItem({ todo }: { todo: string }) {
+export default function TodoItem({
+    todo,
+    deleteFn,
+}: {
+    todo: string;
+    deleteFn: (t: string) => void;
+}) {
     return (
         <div className="animate-flip backface-visible flex justify-between items-center bg-white px-6 py-5 mt-4 rounded text-2xl">
             <p>{todo}</p>
@@ -11,6 +17,7 @@ export default function TodoItem({ todo }: { todo: string }) {
                     size="1.8rem"
                 />
                 <BsTrash
+                    onClick={() => deleteFn(todo)}
                     className="hover:animate-shake cursor-pointer"
                     color="red"
                     size="1.8rem"
