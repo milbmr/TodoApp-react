@@ -1,13 +1,33 @@
 import { useState } from "react";
 
-export default function TodoInput() {
-    const [input, setInput] = useState("");
+type FormData = {
+    todo: string;
+    isComplete: boolean;
+};
 
-    console.log(input);
+export default function TodoInput({todoFunction}: {todoFunction: (todo: string) => void}) {
+    const [input, setInput] = useState("");
+    
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.currentTarget);
+
+        const data: FormData = {
+            todo: formData.get("todo") as string,
+            isComplete: true,
+        };
+
+        console.log(data)
+
+        todoFunction(data.todo);
+    };
+
     return (
-        <form className="flex justify-between items-center">
+        <form onSubmit={onSubmit} className="flex justify-between items-center">
             <input
                 type="text"
+                name="todo"
                 className="w-[30rem] h-[4rem] px-4 py-3 text-3xl outline-none rounded"
                 onChange={(e) => setInput(e.target.value)}
                 value={input}

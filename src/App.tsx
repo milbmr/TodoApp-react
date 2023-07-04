@@ -1,8 +1,8 @@
-import React from "react";
+import {useState} from "react";
 import { useQuery, useMutation } from "react-query";
 import axios from "axios";
 import TodoInput from "@/components/todoInput";
-import TodoItem from "@/components/todoItem";
+import TodoList from "@/components/todo";
 
 type FormData = {
     todo: string;
@@ -12,6 +12,8 @@ type FormData = {
 type ResponseData = Pick<FormData, keyof FormData> & { todoItemId: number };
 
 function App() {
+    const [todos, setTodos] = useState<string[]>([]);
+
     const { data, isSuccess } = useQuery(
         "todos",
         async (): Promise<ResponseData[]> => {
@@ -37,24 +39,15 @@ function App() {
         );
     });
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-
-        const formData = new FormData(event.currentTarget);
-
-        const data: FormData = {
-            todo: formData.get("todo") as string,
-            isComplete: true,
-        };
-
-        mutation.mutate(data);
-    };
 
     return (
         <div className="flex justify-center items-center py-28">
             <div className="container">
-                <TodoInput />
-                <TodoItem />
+                <TodoInput todoFunction={(t) => {
+                    const newTodo = [...todos, t]
+                    setTodos(newTodo)
+                }} />
+                <TodoList todos={todos} />
             </div>
         </div>
     );
