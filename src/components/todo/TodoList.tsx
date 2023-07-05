@@ -7,6 +7,6 @@ export default function TodoList({
     todos: string[];
         deleteFn: (t: string) => void;
 }) {
-    const mappedTodos = todos.map((t, idx) => <TodoItem key={idx} todo={t} deleteFn={deleteFn} />);
+    const mappedTodos = todos.map((t) => <TodoItem key={t} todo={t} deleteFn={deleteFn} />);
     return mappedTodos;
 }

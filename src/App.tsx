@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState, useRef } from "react";
 /* import { useQuery, useMutation } from "react-query"; */
 /* import axios from "axios"; */
 import TodoInput from "@/components/todoInput";
@@ -13,6 +13,7 @@ import TodoList from "@/components/todo";
 
 function App() {
     const [todos, setTodos] = useState<string[]>([]);
+    const timeout = useRef<ReturnType<typeof setTimeout>>();
 
     /* const { data, isSuccess } = useQuery( */
     /*     "todos", */
@@ -37,20 +38,22 @@ function App() {
     /*     return await axios.delete( */
     /*         `http://localhost:5034/api/todoItems/todos/${id}` */
 
-
     const deleteTodo = (todo: string) => {
-        const newTodos = todos.filter(t => t !== todo);
-        setTodos(newTodos);
-    }
-
+        clearTimeout(timeout.current)
+        
+        const newTodos = todos.filter((t) => t !== todo);
+        timeout.current = setTimeout(() => setTodos(newTodos), 1000)
+    };
 
     return (
         <div className="flex justify-center items-center py-28">
             <div className="container">
-                <TodoInput todoFunction={(t) => {
-                    const newTodo = [...todos, t]
-                    setTodos(newTodo)
-                }} />
+                <TodoInput
+                    todoFunction={(t) => {
+                        const newTodo = [...todos, t];
+                        setTodos(newTodo);
+                    }}
+                />
                 <TodoList todos={todos} deleteFn={deleteTodo} />
             </div>
         </div>
