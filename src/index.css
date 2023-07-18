@@ -14,6 +14,7 @@ body {
     background-color: #1864ab;
     background-image: linear-gradient(140deg, #1864ab, #748ffc);
     height: 1vh;
+    color: #111;
 }
 
 .container {

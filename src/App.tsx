@@ -49,11 +49,7 @@ function App() {
 
     return (
         <>
-            <TodoPage
-                setTodoFn={setTodos}
-                deleteTodo={deleteTodo}
-                todos={todos}
-            />
+            <AuthPage />
         </>
     );
 }
