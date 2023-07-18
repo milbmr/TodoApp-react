@@ -3,6 +3,8 @@ import { useState, useRef } from "react";
 /* import axios from "axios"; */
 import TodoInput from "@/components/todoInput";
 import TodoList from "@/components/todo";
+import AuthPage from "@/pages/auth";
+import TodoPage from "@/pages/todo";
 
 /* type FormData = { */
 /*     todo: string; */
@@ -39,24 +41,20 @@ function App() {
     /*         `http://localhost:5034/api/todoItems/todos/${id}` */
 
     const deleteTodo = (todo: string) => {
-        clearTimeout(timeout.current)
-        
+        clearTimeout(timeout.current);
+
         const newTodos = todos.filter((t) => t !== todo);
-        timeout.current = setTimeout(() => setTodos(newTodos), 1000)
+        timeout.current = setTimeout(() => setTodos(newTodos), 1000);
     };
 
     return (
-        <div className="flex justify-center items-center py-28">
-            <div className="container">
-                <TodoInput
-                    todoFunction={(t) => {
-                        const newTodo = [...todos, t];
-                        setTodos(newTodo);
-                    }}
-                />
-                <TodoList todos={todos} deleteFn={deleteTodo} />
-            </div>
-        </div>
+        <>
+            <TodoPage
+                setTodoFn={setTodos}
+                deleteTodo={deleteTodo}
+                todos={todos}
+            />
+        </>
     );
 }
 
