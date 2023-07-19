@@ -9,3 +9,8 @@ export type AuthContextType = {
     isAuthenticated: AuthResponse;
     setIsAuthenticated: React.Dispatch<SetStateAction<AuthResponse>>;
 };
+
+export type TodoType = {
+    todo: string;
+    isComplete: boolean;
+};
