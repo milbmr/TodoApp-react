@@ -1,15 +1,15 @@
 import useAuth from "./useAuth";
-import axios from "@/utils/helpers";
+import { axiosInstance } from "@/utils/helpers";
 
 export default function useRefresh() {
-    const { setIsAuthenticated } = useAuth();
+    const { auth, setAuth } = useAuth();
 
     const refresh = async () => {
-        const token = await axios.get("/refresh", {
-            withCredentials: true,
+        const token = await axiosInstance.get("/refresh", {
+            headers: { Authorization: `Bearer ${auth.accessToken}` },
         });
 
-        setIsAuthenticated((prev) => {
+        setAuth((prev) => {
             return { ...prev, accessToken: token.data.accessToken };
         });
 

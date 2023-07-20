@@ -4,12 +4,12 @@ import { AuthContextType, AuthResponse } from "@/utils/types";
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<AuthResponse>(
+    const [auth, setAuth] = useState<AuthResponse>(
         {} as AuthResponse
     );
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+        <AuthContext.Provider value={{ auth, setAuth }}>
             {children}
         </AuthContext.Provider>
     );

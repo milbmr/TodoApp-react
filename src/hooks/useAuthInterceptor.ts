@@ -3,14 +3,14 @@ import useAuth from "./useAuth";
 import useRefresh from "./useRefresh";
 
 export default function useAuthInterceptor() {
-    const { isAuthenticated } = useAuth();
+    const { auth } = useAuth();
     const refresh = useRefresh();
 
     axiosInstance.interceptors.request.use(
         (config) => {
             config.headers[
                 "Authorization"
-            ] = `Bearer ${isAuthenticated.accessToken}`;
+            ] = `Bearer ${auth.accessToken}`;
             return config;
         },
 

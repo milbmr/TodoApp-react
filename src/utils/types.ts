@@ -6,8 +6,8 @@ export type AuthResponse = {
 };
 
 export type AuthContextType = {
-    isAuthenticated: AuthResponse;
-    setIsAuthenticated: React.Dispatch<SetStateAction<AuthResponse>>;
+    auth: AuthResponse;
+    setAuth: React.Dispatch<SetStateAction<AuthResponse>>;
 };
 
 export type TodoType = {
