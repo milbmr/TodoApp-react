@@ -11,6 +11,7 @@ export type AuthContextType = {
 };
 
 export type TodoType = {
+    id: string;
     todo: string;
     isComplete: boolean;
 };

@@ -1,12 +1,15 @@
 import TodoItem from "./TodoItem";
+import { useGetTodos } from "@/lib/react-query";
 
 export default function TodoList({
-    todos,
     deleteFn,
 }: {
-    todos: string[];
-        deleteFn: (t: string) => void;
+    deleteFn: (t: string) => void;
 }) {
-    const mappedTodos = todos.map((t) => <TodoItem key={t} todo={t} deleteFn={deleteFn} />);
+    const { data } = useGetTodos();
+
+    const mappedTodos = data?.map((t) => (
+        <TodoItem key={t.id} todo={t.todo} deleteFn={deleteFn} />
+    ));
     return mappedTodos;
 }
