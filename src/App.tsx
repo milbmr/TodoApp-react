@@ -1,10 +1,9 @@
 import { useState, useRef } from "react";
 /* import { useQuery, useMutation } from "react-query"; */
 /* import axios from "axios"; */
-import TodoInput from "@/components/todoInput";
-import TodoList from "@/components/todo";
 import AuthPage from "@/pages/auth";
 import TodoPage from "@/pages/todo";
+import useAuth from "@/hooks/useAuth";
 
 /* type FormData = { */
 /*     todo: string; */
@@ -16,6 +15,9 @@ import TodoPage from "@/pages/todo";
 function App() {
     const [todos, setTodos] = useState<string[]>([]);
     const timeout = useRef<ReturnType<typeof setTimeout>>();
+    const {
+        auth: { user },
+    } = useAuth();
 
     /* const { data, isSuccess } = useQuery( */
     /*     "todos", */
@@ -49,7 +51,15 @@ function App() {
 
     return (
         <>
-            <AuthPage />
+            {!user ? (
+                <AuthPage />
+            ) : (
+                <TodoPage
+                    todos={todos}
+                    setTodoFn={setTodos}
+                    deleteTodo={deleteTodo}
+                />
+            )}
         </>
     );
 }

@@ -1,20 +1,13 @@
-import axios from "axios";
-import { useMutation } from "react-query";
+import { axiosInstance } from "@/utils/helpers";
+import useAuth from "@/hooks/useAuth";
+import { AuthResponse } from "@/utils/types";
 
 type UserCredentials = { userName: string; password: string };
 
 export default function AuthPage() {
-    const mutation = useMutation(async (credentials: UserCredentials) => {
-        const response = await axios.post(
-            "http://localhost:5116/api/Account/Login",
-            credentials,
-            { withCredentials: true }
-        );
+    const { setAuth } = useAuth();
 
-        console.log(response.data);
-    });
-
-    const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const formData = new FormData(e.currentTarget);
@@ -24,7 +17,19 @@ export default function AuthPage() {
             password: formData.get("password") as string,
         };
 
-        mutation.mutate(data);
+        try {
+            const response = await axiosInstance.post<AuthResponse>(
+                "Account/Login",
+                data
+            );
+            console.log(response.data);
+            setAuth({
+                user: response.data.user,
+                accessToken: response.data.accessToken,
+            });
+        } catch (err) {
+            console.log(err);
+        }
     };
 
     return (

@@ -9,7 +9,8 @@ export const useGetTodos = () => {
         "todos",
         async () => {
             try {
-                const { data } = await axiosInstance.get<TodoType[]>("todos");
+                const { data } = await axiosInstance.get<TodoType[]>("TodoItems/todos");
+                console.log(data);
                 return data;
             } catch (err) {
                 console.log(err);

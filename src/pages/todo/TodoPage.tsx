@@ -19,7 +19,7 @@ export default function TodoPage({
                         setTodoFn(newTodo);
                     }}
                 />
-                <TodoList todos={todos} deleteFn={deleteTodo} />
+                <TodoList deleteFn={deleteTodo} />
             </div>
         </div>
     );
