@@ -4,9 +4,11 @@ import { BsTrash, BsFillBookmarkCheckFill } from "react-icons/bs";
 
 export default function TodoItem({
     todo,
+    save,
     deleteFn,
 }: {
     todo: string;
+    save: boolean;
     deleteFn: (t: string) => void;
 }) {
     const [isDeleted, setIsDeleted] = useState(false);
@@ -21,7 +23,7 @@ export default function TodoItem({
             <div className="flex justify-between items-center gap-6">
                 <BsFillBookmarkCheckFill
                     className="hover:animate-shake cursor-pointer"
-                    color="green"
+                    color={save ? "#087f5b" : "#adb5bd"}
                     size="1.8rem"
                 />
                 <BsTrash

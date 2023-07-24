@@ -19,6 +19,7 @@ export default function TodoPage({
                         setTodoFn(newTodo);
                     }}
                 />
+                <div className="h-[2px] bg-[#3bc9db] mt-16 mb-16" />
                 <TodoList deleteFn={deleteTodo} />
             </div>
         </div>

@@ -28,7 +28,7 @@ export default function TodoInput({todoFunction}: {todoFunction: (todo: string) 
             <input
                 type="text"
                 name="todo"
-                className="w-[30rem] h-[4rem] px-4 py-3 text-3xl outline-none rounded"
+                className="w-[33rem] h-[4rem] px-4 py-3 text-3xl outline-none rounded"
                 onChange={(e) => setInput(e.target.value)}
                 value={input}
             />

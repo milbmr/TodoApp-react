@@ -15,3 +15,7 @@ export type TodoType = {
     todo: string;
     isComplete: boolean;
 };
+
+export type ReturnedType = {
+    $values: TodoType[];
+};

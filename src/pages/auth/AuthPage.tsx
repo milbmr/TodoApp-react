@@ -22,7 +22,6 @@ export default function AuthPage() {
                 "Account/Login",
                 data
             );
-            console.log(response.data);
             setAuth({
                 user: response.data.user,
                 accessToken: response.data.accessToken,

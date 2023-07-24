@@ -51,15 +51,11 @@ function App() {
 
     return (
         <>
-            {!user ? (
-                <AuthPage />
-            ) : (
-                <TodoPage
-                    todos={todos}
-                    setTodoFn={setTodos}
-                    deleteTodo={deleteTodo}
-                />
-            )}
+            <TodoPage
+                todos={todos}
+                setTodoFn={setTodos}
+                deleteTodo={deleteTodo}
+            />
         </>
     );
 }
